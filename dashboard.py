@@ -143,6 +143,17 @@ div[data-testid="stMetric"] {
 [data-baseweb="tag"] { background-color: #BFDBFE !important; }
 [data-baseweb="tag"] span { color: #1E3A8A !important; }
 
+/* ── MULTISELECT — contenedor de tags (recuadro negro → blanco) ── */
+[data-baseweb="select"] > div,
+[data-baseweb="base-input"],
+div[data-baseweb="select"] div[role="combobox"],
+div[class*="multiSelect"] {
+    background-color: #FFFFFF !important;
+    border: 1.5px solid #BFDBFE !important;
+    border-radius: 10px !important;
+    color: #1E293B !important;
+}
+
 /* ── MULTISELECT DROPDOWN POPUP — fondo azul crema, letra negra ── */
 [data-baseweb="popover"],
 [data-baseweb="menu"],
