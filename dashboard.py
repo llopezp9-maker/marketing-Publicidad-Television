@@ -104,8 +104,8 @@ def load_data_simple():
     
     # Simular histórico de PIB para la narrativa (Datos DANE aproximados)
     if 'PIB_CRECIMIENTO' not in df.columns:
-        df['PIB_CRECIMIENTO'] = [3.0, 2.1, 1.4, 2.6, 3.2, -7.0, 10.8, 7.3, 0.6, 1.5, 2.8] + [2.5]*20
-        df['PIB_CRECIMIENTO'] = df['PIB_CRECIMIENTO'].iloc[:len(df)]
+        pib_vals = [3.0, 2.1, 1.4, 2.6, 3.2, -7.0, 10.8, 7.3, 0.6, 1.5, 2.8] + [2.5]*max(0, len(df)-11)
+        df['PIB_CRECIMIENTO'] = pib_vals[:len(df)]
 
     # Series de Tiempo Simple (Growth Projection al 5% anual)
     last_year = df['AÑO'].max()
