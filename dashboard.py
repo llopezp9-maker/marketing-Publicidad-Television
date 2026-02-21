@@ -22,7 +22,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# CSS PREMIUM LIGHT (tema claro, contraste alto, profesional)
+# CSS PREMIUM LIGHT (tema claro, contraste alto, sidebar visible, firma autor)
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display&display=swap');
@@ -39,33 +39,56 @@ html, body, [class*="css"] {
 .hero {
     background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 60%, #60A5FA 100%);
     color: white;
-    padding: 56px 40px;
+    padding: 50px 40px 36px;
     border-radius: 28px;
     text-align: center;
     margin-bottom: 40px;
 }
 .hero h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: 3.4rem;
-    margin-bottom: 12px;
+    font-size: 3.2rem;
+    margin-bottom: 10px;
     letter-spacing: -0.03em;
+    color: white !important;
 }
-.hero p { font-size: 1.15rem; opacity: 0.88; }
+.hero p { font-size: 1.1rem; opacity: 0.9; color: white !important; }
+
+/* Firma en el hero */
+.hero-author {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.hero-author-info { text-align: left; }
+.hero-author-name  { font-size: 1.2rem; font-weight: 700; color: white; }
+.hero-author-role  { font-size: 0.85rem; color: rgba(255,255,255,0.78); margin-top: 2px; }
+.hero-li-link {
+    background: rgba(255,255,255,0.18);
+    color: white !important;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: background 0.2s;
+}
+.hero-li-link:hover { background: rgba(255,255,255,0.32); }
 
 /* ── SECTION SEPARATORS ── */
 .section-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #2563EB;
-    margin-bottom: 4px;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #2563EB; margin-bottom: 4px;
 }
 .section-title {
     font-family: 'DM Serif Display', serif;
-    font-size: 2rem;
-    color: #0F172A;
-    margin-bottom: 8px;
+    font-size: 2rem; color: #0F172A; margin-bottom: 8px;
 }
 
 /* ── KPI CARDS ── */
@@ -81,40 +104,78 @@ div[data-testid="stMetric"] {
 
 /* ── NARRATIVE CARD ── */
 .narr {
-    background: #F8FAFC;
-    border-left: 6px solid #2563EB;
-    padding: 22px 26px;
-    border-radius: 14px;
-    line-height: 1.7;
-    color: #334155;
-    margin: 16px 0 28px;
-    font-size: 1.05rem;
+    background: #F8FAFC; border-left: 6px solid #2563EB;
+    padding: 22px 26px; border-radius: 14px;
+    line-height: 1.7; color: #334155;
+    margin: 16px 0 28px; font-size: 1.05rem;
 }
 
-/* ── TABS ── */
+/* ── TABS — fondo azul suave, texto siempre visible ── */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 6px;
-    background: #F1F5F9;
-    padding: 6px;
-    border-radius: 14px;
+    gap: 6px; background: #DBEAFE;
+    padding: 6px; border-radius: 14px;
 }
 .stTabs [data-baseweb="tab"] {
-    border-radius: 10px;
-    padding: 8px 20px;
-    color: #64748B;
-    font-weight: 600;
+    border-radius: 10px; padding: 8px 18px;
+    color: #1E40AF !important;
+    font-weight: 700 !important;
+    background: transparent;
 }
 .stTabs [aria-selected="true"] {
-    background-color: #fff !important;
-    color: #1E40AF !important;
-    box-shadow: 0 2px 8px rgba(30,64,175,0.1);
+    background-color: #1E40AF !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(30,64,175,0.3);
 }
 
-/* ── SIDEBAR ── */
-[data-testid="stSidebar"] { background: #F8FAFC !important; }
+/* ── SIDEBAR — TEXTO SIEMPRE OSCURO Y VISIBLE ── */
+[data-testid="stSidebar"] {
+    background-color: #EFF6FF !important;
+}
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] div,
+[data-testid="stSidebar"] .stMarkdown {
+    color: #1E293B !important;
+    font-weight: 500;
+}
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #1E40AF !important;
+    font-weight: 700 !important;
+}
+/* Multiselect tags en sidebar */
+[data-baseweb="tag"] {
+    background-color: #BFDBFE !important;
+    color: #1E3A8A !important;
+}
+[data-baseweb="tag"] span { color: #1E3A8A !important; }
 
-/* Footer */
-.footer { text-align:center; color:#94A3B8; margin-top:50px; font-size:0.9rem; }
+/* ── FOOTER FIRMA ── */
+.footer-card {
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    border-radius: 22px;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    border: 1px solid #BFDBFE;
+}
+.footer-card-text h3 { color: #1E40AF !important; margin: 0; font-size: 1.5rem; }
+.footer-card-text .role { color: #475569; margin: 4px 0 10px; font-size: 1rem; }
+.footer-card-text a {
+    background: #1E40AF;
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.footer { text-align:center; color:#94A3B8; margin-top:16px; font-size:0.85rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -220,10 +281,33 @@ df_v = df_hist[(df_hist["AÑO"] >= yr_range[0]) & (df_hist["AÑO"] <= yr_range[1
 # ─────────────────────────────────────────
 # HERO HEADER
 # ─────────────────────────────────────────
-st.markdown("""
+import base64, os
+
+# QR Image helper
+def get_qr_b64():
+    qr_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'qr_linkedin.png')
+    if os.path.exists(qr_path):
+        with open(qr_path, 'rb') as f:
+            return base64.b64encode(f.read()).decode()
+    return None
+
+qr_b64 = get_qr_b64()
+qr_html = f'<img src="data:image/png;base64,{qr_b64}" width="90" style="border-radius:10px; border:2px solid rgba(255,255,255,0.4);"/>' if qr_b64 else ''
+
+st.markdown(f"""
 <div class="hero">
     <h1>📺 Inversión Publicitaria en Colombia</h1>
-    <p>Análisis de Datos, Tendencias y Proyecciones 1995 – 2031 &nbsp;|&nbsp; Storytelling de Medios</p>
+    <p>Análisis de Datos, Tendencias y Proyecciones 1995 &ndash; 2031 &nbsp;|&nbsp; Storytelling de Medios</p>
+    <div class="hero-author">
+        {qr_html}
+        <div class="hero-author-info">
+            <div class="hero-author-name">👤 Luis Miguel López</div>
+            <div class="hero-author-role">Data Analyst | Marketing & Media Intelligence</div>
+        </div>
+        <a href="https://www.linkedin.com/in/luislopezanalytics" target="_blank" class="hero-li-link">
+            🔗 LinkedIn: luislopezanalytics
+        </a>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -274,7 +358,7 @@ with t1:
         fig1 = px.area(df_v, x="AÑO", y=medios_disp,
                        title="Inversión histórica por medio (M COP)",
                        color_discrete_sequence=["#1D4ED8","#60A5FA","#10B981","#F59E0B","#6B7280","#94A3B8","#CBD5E1"],
-                       template="plotly_white")
+                       template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF")
         fig1.update_layout(legend=dict(orientation="h", yanchor="bottom", y=-0.35))
         st.plotly_chart(fig1, use_container_width=True)
 
@@ -282,7 +366,7 @@ with t1:
     fig1b = px.line(df_v, x="AÑO", y=["TOTAL_INV","TV_TOTAL","DIGITAL"],
                     title="Mercado total vs Televisión vs Digital",
                     color_discrete_map={"TOTAL_INV":"#0F172A","TV_TOTAL":"#1D4ED8","DIGITAL":"#10B981"},
-                    template="plotly_white", markers=True)
+                    template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", markers=True)
     fig1b.add_annotation(x=2020, y=df_v[df_v["AÑO"]==2020]["TOTAL_INV"].values[0]*1.05,
                           text="Pandemia -6.9%", showarrow=True, arrowhead=2, bgcolor="#FEF9C3", font=dict(color="#92400E"))
     st.plotly_chart(fig1b, use_container_width=True)
@@ -307,7 +391,7 @@ with t2:
         fig2a = px.area(df_norm, x="AÑO", y=["TV_TOTAL","DIGITAL","TRADICIONAL"],
                         title="Share normalizado del Presupuesto (%)",
                         color_discrete_sequence=["#1D4ED8","#10B981","#94A3B8"],
-                        template="plotly_white")
+                        template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF")
         fig2a.update_layout(legend=dict(orientation="h"))
         st.plotly_chart(fig2a, use_container_width=True)
 
@@ -320,8 +404,8 @@ with t2:
         fig2b.add_trace(go.Scatter(x=df_v["AÑO"], y=df_v["DIG_SHARE"]*100,
                                    name="Digital Share %", fill="tozeroy",
                                    line=dict(color="#10B981", width=3)))
-        fig2b.update_layout(title="TV vs Digital: Participación en la torta (%)",
-                             template="plotly_white",
+        fig2b.update_layout(paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", title="TV vs Digital: Participación en la torta (%)",
+                             template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF",
                              yaxis_title="% del presupuesto total")
         st.plotly_chart(fig2b, use_container_width=True)
 
@@ -339,7 +423,7 @@ with t2:
         fig2c = px.bar(snap_data, x="Medio", y="Inversión", text_auto=".3s",
                        title=f"Inversión por Medio — {year_snap}",
                        color="Inversión", color_continuous_scale="Blues",
-                       template="plotly_white")
+                       template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF")
         st.plotly_chart(fig2c, use_container_width=True)
 
 
@@ -358,14 +442,14 @@ with t3:
     fig3a = px.histogram(df_stat, x=var_hist, nbins=15,
                          title=f"Distribución histórica — {var_hist}",
                          color_discrete_sequence=["#1D4ED8"],
-                         template="plotly_white")
+                         template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF")
     fig3a.update_traces(marker_line_color="white", marker_line_width=1.5)
     st.plotly_chart(fig3a, use_container_width=True)
 
     # — Boxplots
     fig3b = px.box(df_stat, y=media_stat,
                    title="Dispersión, mediana y outliers por medio (Boxplot)",
-                   template="plotly_white",
+                   template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF",
                    color_discrete_sequence=["#1D4ED8"])
     st.plotly_chart(fig3b, use_container_width=True)
 
@@ -375,7 +459,7 @@ with t3:
     fig3c = px.bar(means.sort_values("Media", ascending=False), x="Medio", y="Media",
                    text_auto=".3s", title="Media histórica de inversión por medio",
                    color="Media", color_continuous_scale="Blues",
-                   template="plotly_white")
+                   template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF")
     st.plotly_chart(fig3c, use_container_width=True)
 
     # — Tabla de estadísticas descriptivas
@@ -409,8 +493,8 @@ with t4:
     colors = ["#F87171" if v < 0 else "#60A5FA" for v in df_var["VAR_YOY"]]
     fig4a = go.Figure(go.Bar(x=df_var["AÑO"], y=df_var["VAR_YOY"], marker_color=colors,
                               text=[f"{v:.1f}%" for v in df_var["VAR_YOY"]], textposition="outside"))
-    fig4a.update_layout(title="Variación Porcentual Anual de la Inversión Total (%)",
-                        xaxis_title="Año", yaxis_title="Variación (%)", template="plotly_white")
+    fig4a.update_layout(paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", title="Variación Porcentual Anual de la Inversión Total (%)",
+                        xaxis_title="Año", yaxis_title="Variación (%)", template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF")
     # Anotaciones hitos
     for hito in [(2020,"Pandemia\n-6.9%","-7"),(2021,"Rebote\n+47.5%","+47"),(2016,"Crisis\nPetróleo","-8")]:
         y_val = df_var[df_var["AÑO"]==hito[0]]["VAR_YOY"]
@@ -428,8 +512,8 @@ with t4:
         increasing = dict(marker=dict(color="#60A5FA")),
         decreasing = dict(marker=dict(color="#F87171")),
     ))
-    fig4b.update_layout(title="Variación Incremental de la Inversión en TV (por año)",
-                        template="plotly_white", xaxis_title="Año")
+    fig4b.update_layout(paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", title="Variación Incremental de la Inversión en TV (por año)",
+                        template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", xaxis_title="Año")
     st.plotly_chart(fig4b, use_container_width=True)
 
 
@@ -460,7 +544,7 @@ with t5:
     fig5a.add_vrect(x0=2025.5, x1=2031.5, fillcolor="#EFF6FF", opacity=0.7,
                     layer="below", annotation_text="Zona Proyección",
                     annotation_position="top left")
-    fig5a.update_layout(template="plotly_white", xaxis_title="Año",
+    fig5a.update_layout(template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", xaxis_title="Año",
                         yaxis_title="Inversión (M COP)",
                         title="Regresión Lineal: Inversión Total 1995 – 2031")
     st.plotly_chart(fig5a, use_container_width=True)
@@ -483,7 +567,7 @@ with t5:
                                 name="Digital Proyectado", line=dict(color="#6EE7B7", width=3, dash="dot")))
     fig5b.add_vrect(x0=2025.5, x1=2031.5, fillcolor="#F0FDF4", opacity=0.6,
                     layer="below", annotation_text="Futuro")
-    fig5b.update_layout(template="plotly_white",
+    fig5b.update_layout(template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF",
                         title="Series de Tiempo: Trayectorias de TV y Digital al 2031",
                         hovermode="x unified")
     st.plotly_chart(fig5b, use_container_width=True)
@@ -505,7 +589,7 @@ with t5:
         name="Cada Año"))
     fig5c.add_trace(go.Scatter(x=x_line, y=y_line, mode="lines",
                                 name="Tendencia", line=dict(color="#F59E0B", width=3, dash="dash")))
-    fig5c.update_layout(template="plotly_white",
+    fig5c.update_layout(template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF",
                         xaxis_title="Penetración de Internet (%)",
                         yaxis_title="Inversión en TV (M COP)",
                         title="Correlación: Penetración de Internet vs Inversión TV")
@@ -531,7 +615,7 @@ with t6:
                                 name="Crecimiento PIB (%)", yaxis="y2",
                                 line=dict(color="#1D4ED8", width=3)))
     fig6a.update_layout(
-        template="plotly_white",
+        template="plotly_white", paper_bgcolor="#F0F4FF", plot_bgcolor="#F0F4FF",
         title="Inversión Publicitaria vs. Crecimiento del PIB en Colombia",
         yaxis=dict(title="Inversión (M COP)"),
         yaxis2=dict(title="Crecimiento PIB (%)", overlaying="y", side="right", showgrid=False),
@@ -574,10 +658,25 @@ with t6:
 # ─────────────────────────────────────────
 # FOOTER
 # ─────────────────────────────────────────
-st.markdown("""
+# FOOTER CON FIRMA DE AUTOR
+# ─────────────────────────────────────────
+st.markdown("---")
+qr_footer = f'<img src="data:image/png;base64,{qr_b64}" width="110" style="border-radius:14px; box-shadow: 0 4px 12px rgba(30,64,175,0.15);"/>' if qr_b64 else ''
+st.markdown(f"""
+<div class="footer-card">
+    {qr_footer}
+    <div class="footer-card-text">
+        <h3>👤 Luis Miguel López</h3>
+        <div class="role">Data Analyst &nbsp;&bull;&nbsp; Marketing & Media Intelligence &nbsp;&bull;&nbsp; Colombia</div>
+        <a href="https://www.linkedin.com/in/luislopezanalytics" target="_blank">
+            🔗 www.linkedin.com/in/luislopezanalytics
+        </a>
+    </div>
+</div>
 <div class="footer">
     Colombia Advertising Intelligence &nbsp;|&nbsp;
     Data Storytelling Dashboard &nbsp;|&nbsp; 2026 &nbsp;|&nbsp;
     Fuentes: IBOPE · DANE · Banco Mundial · IAB Colombia
 </div>
 """, unsafe_allow_html=True)
+
