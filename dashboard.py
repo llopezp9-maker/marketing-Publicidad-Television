@@ -143,6 +143,27 @@ div[data-testid="stMetric"] {
 [data-baseweb="tag"] { background-color: #BFDBFE !important; }
 [data-baseweb="tag"] span { color: #1E3A8A !important; }
 
+/* ── MULTISELECT DROPDOWN POPUP — fondo azul crema, letra negra ── */
+[data-baseweb="popover"],
+[data-baseweb="menu"],
+[role="listbox"] {
+    background-color: #EFF6FF !important;
+    border: 1px solid #BFDBFE !important;
+    border-radius: 12px !important;
+}
+[data-baseweb="menu"] li,
+[role="option"],
+[role="listbox"] li {
+    color: #1E293B !important;
+    font-weight: 500 !important;
+    background-color: #EFF6FF !important;
+}
+[data-baseweb="menu"] li:hover,
+[role="option"]:hover {
+    background-color: #DBEAFE !important;
+    color: #1E40AF !important;
+}
+
 /* ── FOOTER CARD DE FIRMA ── */
 .footer-card {
     background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
@@ -321,17 +342,18 @@ t1, t2, t3, t4, t5, t6 = st.tabs([
 # ── helper para layout uniforme ──
 def base_layout(fig, title="", xtitle="Año", ytitle="Inversión (M COP)"):
     fig.update_layout(
-        title        = title,
+        title        = dict(text=title, font=dict(color="#0F172A", size=17, family="DM Sans")),
         paper_bgcolor= PAPER_BG,
         plot_bgcolor = PLOT_BG,
         xaxis_title  = xtitle,
         yaxis_title  = ytitle,
-        font         = dict(color="#1E293B"),
-        legend       = dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        font         = dict(color="#0F172A", family="DM Sans"),  # Negro para todo el texto
+        legend       = dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1,
+                            font=dict(color="#0F172A")),
         hovermode    = "x unified",
     )
-    fig.update_xaxes(gridcolor="#DBEAFE")
-    fig.update_yaxes(gridcolor="#DBEAFE")
+    fig.update_xaxes(gridcolor="#DBEAFE", title_font=dict(color="#0F172A"), tickfont=dict(color="#0F172A"))
+    fig.update_yaxes(gridcolor="#DBEAFE", title_font=dict(color="#0F172A"), tickfont=dict(color="#0F172A"))
     return fig
 
 
@@ -586,13 +608,16 @@ with t6:
                                name="Crecimiento PIB (%)", yaxis="y2",
                                line=dict(color="#1D4ED8", width=3)))
     fig6.update_layout(
-        title        = "Inversión Publicitaria vs Crecimiento del PIB en Colombia",
+        title        = dict(text="Inversión Publicitaria vs Crecimiento del PIB en Colombia",
+                            font=dict(color="#0F172A", size=17)),
         paper_bgcolor= PAPER_BG,
         plot_bgcolor = PLOT_BG,
-        font         = dict(color="#1E293B"),
-        yaxis        = dict(title="Inversión (M COP)", gridcolor="#DBEAFE"),
-        yaxis2       = dict(title="Crecimiento PIB (%)", overlaying="y", side="right", showgrid=False),
-        legend       = dict(orientation="h", y=1.12),
+        font         = dict(color="#0F172A", family="DM Sans"),
+        yaxis        = dict(title="Inversión (M COP)", gridcolor="#DBEAFE",
+                            title_font=dict(color="#0F172A"), tickfont=dict(color="#0F172A")),
+        yaxis2       = dict(title="Crecimiento PIB (%)", overlaying="y", side="right", showgrid=False,
+                            title_font=dict(color="#0F172A"), tickfont=dict(color="#0F172A")),
+        legend       = dict(orientation="h", y=1.12, font=dict(color="#0F172A")),
     )
     st.plotly_chart(fig6, use_container_width=True)
 
