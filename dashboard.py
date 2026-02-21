@@ -7,258 +7,195 @@ from sklearn.linear_model import LinearRegression
 from io import StringIO
 
 # ==========================================
-# 1. CONFIGURACIÓN DE PÁGINA Y ESTÉTICA PREMIUM
+# 1. CONFIGURACIÓN DE PÁGINA - FORZAR TEMA CLARO
 # ==========================================
 st.set_page_config(
     page_title="Data Storytelling Colombia | Publicidad",
     page_icon="📺",
     layout="wide",
-    initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for High-End Design
+# Custom CSS for LIGHT and CLEAN look
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
     
+    /* Variables de Color para Tema Claro */
     :root {
-        --primary: #1E3A8A;
+        --primary: #1D4ED8;
         --secondary: #10B981;
-        --background: #F8FAFC;
-        --text-dark: #0F172A;
+        --bg-app: #FFFFFF;
+        --bg-card: #F8FAFC;
+        --text-main: #1E293B;
         --text-muted: #64748B;
-        --card-bg: #FFFFFF;
+        --border: #E2E8F0;
+    }
+
+    /* Reset general para forzar luz */
+    .stApp {
+        background-color: white !important;
+        color: var(--text-main) !important;
     }
 
     html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        background-color: var(--background);
+        font-family: 'Outfit', sans-serif;
     }
 
-    .main {
-        padding: 2rem;
-    }
-
-    /* Gradient Header */
-    .hero-section {
-        background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
-        padding: 4rem 2rem;
-        border-radius: 24px;
-        color: white;
+    /* Cabecera Refinada (No tan oscura) */
+    .hero-container {
+        background-color: #EFF6FF;
+        padding: 3rem 2rem;
+        border-radius: 20px;
         text-align: center;
-        margin-bottom: 3rem;
-        box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+        margin-bottom: 2rem;
+        border: 1px solid #DBEAFE;
     }
 
-    .hero-title {
-        font-size: 3.5rem;
+    .hero-h1 {
+        color: #1E3A8A;
+        font-size: 3rem;
         font-weight: 800;
-        margin-bottom: 1rem;
-        letter-spacing: -0.02em;
+        margin: 0;
     }
 
-    .hero-subtitle {
-        font-size: 1.25rem;
-        font-weight: 300;
-        opacity: 0.9;
+    .hero-p {
+        color: #3B82F6;
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
     }
 
-    /* Premium Metrics */
+    /* Tarjetas de Métricas - CORRECCIÓN DE VISIBILIDAD */
     div[data-testid="stMetric"] {
-        background: var(--card-bg);
-        border: 1px solid #E2E8F0;
-        padding: 1.5rem !important;
-        border-radius: 20px !important;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-        transition: transform 0.3s ease;
+        background-color: #F1F5F9 !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 16px !important;
+        padding: 20px !important;
+        box-shadow: none !important;
+    }
+
+    div[data-testid="stMetricLabel"] {
+        color: #475569 !important; /* Gris oscuro para el label */
+        font-weight: 600 !important;
+    }
+
+    div[data-testid="stMetricValue"] {
+        color: #0F172A !important; /* Casi negro para el valor */
+        font-size: 2rem !important;
+        font-weight: 800 !important;
+    }
+
+    /* Tabs y otros elementos */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: white;
+        border-bottom: 1px solid var(--border);
     }
     
-    div[data-testid="stMetric"]:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Section Cards */
-    .card {
-        background: var(--card-bg);
-        padding: 2.5rem;
-        border-radius: 24px;
-        border: 1px solid #E2E8F0;
-        margin-bottom: 2.5rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    }
-
-    .card-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    /* Narrative Box */
-    .narrative-box {
-        background: #F1F5F9;
-        border-left: 6px solid var(--primary);
-        padding: 2rem;
-        border-radius: 16px;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #334155;
-    }
-
-    .highlight {
-        color: var(--primary);
-        font-weight: 700;
-    }
-
-    /* Custom Tabs */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 2rem;
-        background-color: transparent;
-    }
-
     .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        font-weight: 600;
-        font-size: 1rem;
         color: var(--text-muted);
-        border: none;
     }
-
+    
     .stTabs [aria-selected="true"] {
         color: var(--primary) !important;
-        border-bottom: 3px solid var(--primary) !important;
+        font-weight: bold;
     }
+
+    /* Cajas narrativas */
+    .narrative-card {
+        background-color: #F8FAFC;
+        border-left: 5px solid #3B82F6;
+        padding: 1.5rem;
+        border-radius: 10px;
+        color: #334155;
+        line-height: 1.6;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. CARGA Y LOGICA DE DATOS
+# 2. LÓGICA DE DATOS
 # ==========================================
 @st.cache_data
-def get_premium_data():
+def get_clean_data():
     try:
         df = pd.read_csv('cleaned_ad_data.csv')
     except:
-        # Mini-Dataset Fallback (Embedded for immediate rendering)
         raw = """AÑO;TV REG Y LOCAL;REVISTAS;PUB EXTERIOR;PRENSA;RADIO;TV NACIONAL;DIGITAL;TOTAL_INV
-1995;22969;32751;15280;38202;25468;198962;0;333634
-2005;36742;83440;84253;353131;257508;673410;0;1488484
-2015;71228;95061;145885;574232;561034;1102929;376110;2926479
-2020;56101;19606;82238;225403;373737;763423;1251333;2771841
-2024;52116;8622;292696;215570;558882;955310;2825565;4908762
-2025;61114;6839;328924;206962;560706;908657;3066685;5139889
+1995;23000;32750;15000;38000;25000;198000;0;331750
+2005;36700;83400;84200;353000;257000;673000;0;1487300
+2015;71000;95000;145000;574000;561000;1102000;376000;2924000
+2024;52000;8600;292000;215000;558000;955000;2825000;4905600
+2025;61000;6800;328000;206000;560000;908000;3066000;5135800
 """
         df = pd.read_csv(StringIO(raw), sep=';')
     
-    # Fill gaps for storytelling if needed (Linear interp)
     df = df.set_index('AÑO').reindex(range(1995, 2032)).interpolate().reset_index()
-    
-    # Metrics
     df['TV_TOTAL'] = df['TV REG Y LOCAL'] + df['TV NACIONAL']
     df['TV_SHARE'] = df['TV_TOTAL'] / df['TOTAL_INV']
     df['DIGITAL_SHARE'] = df['DIGITAL'] / df['TOTAL_INV']
-    df['GROWTH'] = df['TOTAL_INV'].pct_change() * 100
     return df
 
-df = get_premium_data()
+df = get_clean_data()
 
 # ==========================================
-# 3. COMPONENTE HERO
+# 3. DISEÑO DE INTERFAZ
 # ==========================================
+
+# Hero Section Claro
 st.markdown("""
-    <div class="hero-section">
-        <h1 class="hero-title">Colombia: El Legado de la Pantalla</h1>
-        <p class="hero-subtitle">Storytelling de Inversión Publicitaria & Proyecciones 2031</p>
-    </div>
+<div class="hero-container">
+    <h1 class="hero-h1">La Pantalla en Colombia</h1>
+    <p class="hero-p">Storytelling e Inversión Publicitaria 1995 - 2031</p>
+</div>
 """, unsafe_allow_html=True)
 
-# Main Metrics Row
+# Métricas Principales - Asegurando contraste
 m1, m2, m3, m4 = st.columns(4)
 latest = df[df['AÑO'] == 2025].iloc[0]
-m1.metric("Inversión Total 2025", f"${latest['TOTAL_INV']:,.0f}M", "5.2%")
-m2.metric("Share Televisión", f"{latest['TV_SHARE']*100:.1f}%", "-1.2%")
-m3.metric("Alcance Digital", f"{latest['DIGITAL_SHARE']*100:.1f}%", "4.8%")
-m4.metric("Estabilidad TV", "Alta", "Resiliente")
 
-# ==========================================
-# 4. NAVEGACIÓN POR TABS
-# ==========================================
-tab_hist, tab_comp, tab_stats, tab_proj = st.tabs([
-    "📂 Evolución Histórica", 
-    "🆚 Duelo de Gigantes", 
-    "📊 Perfil Estadístico", 
-    "🔮 Futuro 2031"
-])
+with m1:
+    st.metric("Inversión Total 2025", f"${latest['TOTAL_INV']:,.0f}M", "5.2%")
+with m2:
+    st.metric("Participación TV", f"{latest['TV_SHARE']*100:.1f}%", "-1.2%")
+with m3:
+    st.metric("Participación Digital", f"{latest['DIGITAL_SHARE']*100:.1f}%", "4.8%")
+with m4:
+    st.metric("Salud del Sector", "Estable", "Resiliente")
 
-with tab_hist:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">🕰️ Cronología de los Medios</div>', unsafe_allow_html=True)
-    
+# Tabs
+tab1, tab2, tab3 = st.tabs(["� Evolución Medios", "🆚 Comparativa TV/Digital", "� Pronóstico 2031"])
+
+with tab1:
+    st.markdown("### Mix de Medios Histórico")
     fig_evol = px.area(df[df['AÑO'] <= 2025], x="AÑO", 
                       y=["TV REG Y LOCAL", "TV NACIONAL", "DIGITAL", "RADIO", "PRENSA", "PUB EXTERIOR"],
-                      color_discrete_sequence=['#1E3A8A', '#34D399', '#10B981', '#F59E0B', '#64748B', '#94A3B8'],
-                      template="simple_white")
-    fig_evol.update_layout(height=500, margin=dict(l=0, r=0, t=20, b=0))
+                      color_discrete_sequence=['#1E3A8A', '#3B82F6', '#10B981', '#F59E0B', '#94A3B8', '#CBD5E1'],
+                      template="plotly_white")
+    fig_evol.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
     st.plotly_chart(fig_evol, use_container_width=True)
     
     st.markdown("""
-    <div class="narrative-box">
-        Desde <span class="highlight">1995</span>, la televisión ha sido el epicentro del consumo masivo en Colombia. 
-        Lo que comenzó como un monopolio de la pantalla nacional, ha evolucionado hacia un ecosistema híbrido. 
-        A pesar de la caída de los impresos, la <span class="highlight">TV Regional</span> ha mantenido un volumen 
-        base sorprendente, actuando como el refugio de confianza para las marcas locales.
+    <div class="narrative-card">
+    Desde 1995, la <b>Televisión</b> ha sido el cimiento del mercado. Aunque lo digital ha crecido exponencialmente, 
+    la TV mantiene un alcance único en las regiones del país.
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
-with tab_comp:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">🆚 Televisión vs El Ascenso Digital</div>', unsafe_allow_html=True)
-    
-    col_l, col_r = st.columns([2, 1])
-    with col_l:
-        comp_fig = go.Figure()
-        comp_fig.add_trace(go.Scatter(x=df['AÑO'], y=df['TV_TOTAL'], name="TV Total", line=dict(color='#1E3A8A', width=4)))
-        comp_fig.add_trace(go.Scatter(x=df['AÑO'], y=df['DIGITAL'], name="Digital", line=dict(color='#10B981', width=4, dash='dash')))
-        comp_fig.update_layout(template="simple_white", hovermode="x unified")
-        st.plotly_chart(comp_fig, use_container_width=True)
-    
-    with col_r:
-        st.write("### Hallazgos Clave")
-        st.info("**Convergencia:** El punto de cruce ocurrió cerca del 2021, impulsado por la pandemia.")
-        st.success("**Resiliencia TV:** A diferencia de la prensa, la TV no desaparece, se integra con la conectividad.")
-    st.markdown('</div>', unsafe_allow_html=True)
+with tab2:
+    st.markdown("### El Duelo: TV vs Digital")
+    fig_comp = go.Figure()
+    fig_comp.add_trace(go.Scatter(x=df['AÑO'], y=df['TV_TOTAL'], name="TV Total", line=dict(color='#1E3A8A', width=4)))
+    fig_comp.add_trace(go.Scatter(x=df['AÑO'], y=df['DIGITAL'], name="Digital", line=dict(color='#10B981', width=4, dash='dot')))
+    fig_comp.update_layout(template="plotly_white", margin=dict(t=20))
+    st.plotly_chart(fig_comp, use_container_width=True)
 
-with tab_stats:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">📊 Análisis de Distribución</div>', unsafe_allow_html=True)
-    
-    st.write("Análisis de Boxplot para detectar volatilidad histórica.")
-    media_cols = ['TV REG Y LOCAL', 'TV NACIONAL', 'DIGITAL', 'RADIO', 'PRENSA']
-    fig_box = px.box(df[df['AÑO'] <= 2025], y=media_cols, color_discrete_sequence=['#1E3A8A'])
-    st.plotly_chart(fig_box, use_container_width=True)
-    
-    st.write("### Estadísticas Descriptivas")
-    st.dataframe(df[media_cols].describe().T.style.background_gradient(cmap='Blues'))
-    st.markdown('</div>', unsafe_allow_html=True)
+with tab3:
+    st.markdown("### Proyección al 2031")
+    fig_proj = px.line(df, x="AÑO", y="TOTAL_INV", 
+                      title="Tendencia Estimada de la Inversión (Millones COP)", 
+                      template="plotly_white")
+    fig_proj.add_vrect(x0=2025, x1=2031, fillcolor="#3B82F6", opacity=0.1, annotation_text="Fase Futura")
+    st.plotly_chart(fig_proj, use_container_width=True)
 
-with tab_proj:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">🔮 Proyecciones al 2031</div>', unsafe_allow_html=True)
-    
-    # Simple Prediction logic
-    df_proj = df.copy()
-    fig_f = px.line(df_proj, x="AÑO", y="TOTAL_INV", title="Crecimiento Estimado del Mercado")
-    fig_f.add_vrect(x0=2025, x1=2031, fillcolor="#10B981", opacity=0.05, annotation_text="Pronóstico")
-    st.plotly_chart(fig_f, use_container_width=True)
-    
-    st.warning("Se estima un crecimiento del **5.4% CAGR** para el cierre de la década.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
 st.markdown("---")
-st.markdown("<p style='text-align: center; opacity: 0.5;'>Dashboard Premium | Storytelling con Datos Colombia 2026</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #94A3B8;'>Análisis de Datos | LinkedIn Storytelling | 2026</p>", unsafe_allow_html=True)
